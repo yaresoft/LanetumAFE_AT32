@@ -27,6 +27,11 @@
             <locationURI>PARENT-2-PROJECT_LOC/libraries/cmsis/cm4/device_support/system_at32f45x.c</locationURI>
         </link>
         <link>
+            <name>middlewares/mbedtls</name>
+            <type>2</type>
+            <locationURI>PARENT-2-PROJECT_LOC/middlewares/mbedtls-mbedtls-3.6.7/library</locationURI>
+        </link>
+        <link>
             <name>user/at32f45x_int.c</name>
             <type>1</type>
             <locationURI>PARENT-1-PROJECT_LOC/src/at32f45x_int.c</locationURI>

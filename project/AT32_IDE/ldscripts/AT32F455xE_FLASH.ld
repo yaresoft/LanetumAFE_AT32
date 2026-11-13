@@ -31,7 +31,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 512K
+FLASH (rx)      : ORIGIN = 0x08010000, LENGTH = 446K
 RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 144K
 }
 
@@ -43,6 +43,8 @@ SECTIONS
   {
     . = ALIGN(4);
     KEEP(*(.isr_vector)) /* Startup code */
+    . = 0x200 ;
+    KEEP(*(.imgheader)) 
     . = ALIGN(4);
   } >FLASH
 
@@ -141,7 +143,13 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM
-
+  .padding : {      
+    LONG(0);
+    . = ALIGN(4);
+    _image_end = .;
+  } > FLASH
+  _image_start = LOADADDR(.isr_vector);
+  _image_size =_image_end -_image_start;
   /* Remove information from the standard libraries */
   /DISCARD/ :
   {
