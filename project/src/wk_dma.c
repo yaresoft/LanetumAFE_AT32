@@ -39,7 +39,7 @@ void wk_dma1_channel1_init(void)
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_HALFWORD;
   dma_init_struct.peripheral_inc_enable = FALSE;
-  dma_init_struct.priority = DMA_PRIORITY_VERY_HIGH;
+  dma_init_struct.priority = DMA_PRIORITY_LOW;
   dma_init_struct.loop_mode_enable = TRUE;
   dma_init(DMA1_CHANNEL1, &dma_init_struct);
 
@@ -81,7 +81,7 @@ void wk_dma1_channel2_init(void)
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_HALFWORD;
   dma_init_struct.peripheral_inc_enable = FALSE;
-  dma_init_struct.priority = DMA_PRIORITY_VERY_HIGH;
+  dma_init_struct.priority = DMA_PRIORITY_LOW;
   dma_init_struct.loop_mode_enable = TRUE;
   dma_init(DMA1_CHANNEL2, &dma_init_struct);
 
@@ -123,7 +123,7 @@ void wk_dma1_channel3_init(void)
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_BYTE;
   dma_init_struct.peripheral_inc_enable = FALSE;
-  dma_init_struct.priority = DMA_PRIORITY_HIGH;
+  dma_init_struct.priority = DMA_PRIORITY_VERY_HIGH;
   dma_init_struct.loop_mode_enable = TRUE;
   dma_init(DMA1_CHANNEL3, &dma_init_struct);
 
@@ -162,7 +162,7 @@ void wk_dma1_channel4_init(void)
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_BYTE;
   dma_init_struct.peripheral_inc_enable = FALSE;
-  dma_init_struct.priority = DMA_PRIORITY_MEDIUM;
+  dma_init_struct.priority = DMA_PRIORITY_HIGH;
   dma_init_struct.loop_mode_enable = TRUE;
   dma_init(DMA1_CHANNEL4, &dma_init_struct);
 

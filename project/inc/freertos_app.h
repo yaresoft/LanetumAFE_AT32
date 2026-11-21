@@ -143,8 +143,10 @@ extern volatile uint8_t spi_buffer[2048];
 extern volatile uint16_t adc1_buffer[2032];
 extern volatile uint16_t adc2_buffer[2032];
 extern volatile uint8_t ADC_Capture[2032*40];
-extern volatile int ADC_Capture_Index;
-extern volatile int ADC_Capture_Ready;
+extern volatile int ADC_Capture_Index1;
+extern volatile int ADC_Capture_Index2;
+extern volatile int ADC_Capture_Ready1;
+extern volatile int ADC_Capture_Ready2;
 
 /* add user code end 0 */
 

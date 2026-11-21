@@ -35,8 +35,10 @@ static QueueHandle_t g_job_queue;
 #define CMD_QUEUE_DEPTH  3
 static QueueHandle_t g_cmd_queue;
 volatile uint8_t ADC_Capture[2032*40];
-volatile int ADC_Capture_Index=0;
-volatile int ADC_Capture_Ready=0;
+volatile int ADC_Capture_Index1=0;
+volatile int ADC_Capture_Index2=0;
+volatile int ADC_Capture_Ready1=0;
+volatile int ADC_Capture_Ready2=0;
 /* add user code end private define */
 
 /* private macro -------------------------------------------------------------*/
@@ -780,13 +782,14 @@ void cmdProcessorTask(void *pvParameters)
 				case AFE_ADC_READ:
 					if(packet->payload.len<=sizeof(packet->payload.data))
 					{
-						if(ADC_Capture_Ready)
+						if(ADC_Capture_Ready1&&ADC_Capture_Ready2)
 						{
 							if(packet->payload.offset+packet->payload.len<sizeof(ADC_Capture))
 							{
 								memcpy(packet->payload.data,&ADC_Capture[packet->payload.offset],packet->payload.len);
 							}
-							ADC_Capture_Ready=0;
+							ADC_Capture_Ready1=0;
+							ADC_Capture_Ready2=0;
 							LastResponse=AFE_RESP_OK;
 						}else
 						{
