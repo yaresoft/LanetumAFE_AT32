@@ -99,7 +99,6 @@
             <ParametersSub name="FirstBit" value="SPI_FIRST_BIT_MSB"/>
             <ParametersSub name="ClkDivision" value="SPI_MCLK_DIV_3"/>
             <ParametersSub name="ClockFrequency" value="26666666"/>
-            <ParametersSub name="CLKPhase" value="SPI_CLOCK_PHASE_2EDGE"/>
         </Parameters>
     </SPI1>
     <SYSTEM>

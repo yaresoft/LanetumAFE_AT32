@@ -34,6 +34,9 @@ static QueueHandle_t g_job_queue;
 /* ===== 命令队列：spiTask 完成一帧 -> cmdProcessorTask 处理 ===== */
 #define CMD_QUEUE_DEPTH  3
 static QueueHandle_t g_cmd_queue;
+volatile uint8_t ADC_Capture[2032*40];
+volatile int ADC_Capture_Index=0;
+volatile int ADC_Capture_Ready=0;
 /* add user code end private define */
 
 /* private macro -------------------------------------------------------------*/
@@ -329,7 +332,7 @@ void StartDefaultTask(void *pvParameters)
 	vTaskDelay(t);
 	wk_usart1_init();
 
-	printf("%08X %08X %08X:%d\r\n", UID1, UID2, UID3, meta->id);
+	printf("%08X %08X %08X:%d-App\r\n", UID1, UID2, UID3, meta->id);
 //	flash_erase(APP_BASE,65536);
 //	for(int i=0;i<2048;i++)
 //	{
@@ -543,8 +546,11 @@ void workerTask(void *pvParameters)
 //            	 ret = SUCCESS;
 		 }
 
+	 } else if (job.type == JOB_RESET){
+		 vTaskDelay(100);
+		 NVIC_SystemReset();
 	 } else {
-		 ret = SUCCESS;
+		 ret = ERROR;
 	 }
 
 
@@ -613,7 +619,36 @@ void cmdProcessorTask(void *pvParameters)
 					packet->payload.response=LastResponse;
 					packet->crc=crc_block_calculate_bytes((uint8_t*) &packet->payload, sizeof(AFEPacketPayload));
 					break;
+				case AFE_RESET:
+					LastCommand=AFE_RESET;
+					if(g_job_state==JOB_IDLE)
+					{
 
+						Job_t job = {
+							.type = JOB_RESET,
+							.addr = 0,
+							.data = NULL,
+							.size = 0,
+						};
+
+						if (xQueueSend(g_job_queue, &job, 0) != pdPASS) {
+							g_job_state  = JOB_IDLE;
+							LastResponse = AFE_RESP_FAILED;
+						} else {
+							g_job_state  = JOB_BUSY;
+							g_job_error  = 0;
+							LastResponse = AFE_RESP_OK;
+						}
+
+					}else {
+						LastResponse = AFE_RESP_BUSY;
+					}
+					packet->sequence=packet->sequence+1;
+					packet->payload.cmd=LastCommand;
+					packet->payload.response=LastResponse;
+					packet->crc=crc_block_calculate_bytes((uint8_t*) &packet->payload, sizeof(AFEPacketPayload));
+
+					break;
 				case AFE_CMD_FW_BEGIN:
 					LastCommand=AFE_CMD_FW_BEGIN;
 					if(g_job_state==JOB_IDLE)
@@ -639,13 +674,7 @@ void cmdProcessorTask(void *pvParameters)
 							LastResponse=AFE_RESP_FAILED;
 						}
 					}else {
-						switch(g_job_state)
-						{
-							case JOB_BUSY:  LastResponse=AFE_RESP_PENDING; break;
-							case JOB_DONE:  LastResponse=AFE_RESP_OK;      g_job_state=JOB_IDLE; break;
-							case JOB_ERROR: LastResponse=AFE_RESP_FAILED;  g_job_state=JOB_IDLE; break;
-							default: break;
-						}
+						LastResponse = AFE_RESP_BUSY;
 					}
 					packet->sequence=packet->sequence+1;
 					packet->payload.cmd=LastCommand;
@@ -708,13 +737,7 @@ void cmdProcessorTask(void *pvParameters)
 		//							printf("AFE_RESP_FAILED3\r\n");
 						}
 					}else {
-						switch(g_job_state)
-						{
-							case JOB_BUSY:  LastResponse=AFE_RESP_PENDING; break;
-							case JOB_DONE:  LastResponse=AFE_RESP_OK;      g_job_state=JOB_IDLE; break;
-							case JOB_ERROR: LastResponse=AFE_RESP_FAILED;  g_job_state=JOB_IDLE;break;
-							default: break;
-						}
+						LastResponse = AFE_RESP_BUSY;
 					}
 					packet->sequence=packet->sequence+1;
 					packet->payload.cmd=LastCommand;
@@ -747,20 +770,40 @@ void cmdProcessorTask(void *pvParameters)
 							LastResponse=AFE_RESP_FAILED;
 						}
 					}else {
-						switch(g_job_state)
-						{
-							case JOB_BUSY:  LastResponse=AFE_RESP_PENDING; break;
-							case JOB_DONE:  LastResponse=AFE_RESP_OK;      g_job_state=JOB_IDLE; break;
-							case JOB_ERROR: LastResponse=AFE_RESP_FAILED;  g_job_state=JOB_IDLE; break;
-							default: break;
-						}
+						LastResponse=AFE_RESP_BUSY;
 					}
 					packet->sequence=packet->sequence+1;
 					packet->payload.cmd=LastCommand;
 					packet->payload.response=LastResponse;
 					packet->crc=crc_block_calculate_bytes((uint8_t*) &packet->payload, sizeof(AFEPacketPayload));
 					break;
+				case AFE_ADC_READ:
+					if(packet->payload.len<=sizeof(packet->payload.data))
+					{
+						if(ADC_Capture_Ready)
+						{
+							if(packet->payload.offset+packet->payload.len<sizeof(ADC_Capture))
+							{
+								memcpy(packet->payload.data,&ADC_Capture[packet->payload.offset],packet->payload.len);
+							}
+							ADC_Capture_Ready=0;
+							LastResponse=AFE_RESP_OK;
+						}else
+						{
+							LastResponse=AFE_RESP_BUSY;
+						}
 
+					}else
+					{
+						LastResponse=AFE_RESP_FAILED;
+					}
+					LastCommand=AFE_ADC_READ;
+
+					packet->sequence=packet->sequence+1;
+					packet->payload.cmd=LastCommand;
+					packet->payload.response=LastResponse;
+					packet->crc=crc_block_calculate_bytes((uint8_t*) &packet->payload, sizeof(AFEPacketPayload));
+					break;
 				default:
 					break;
 			}
@@ -774,7 +817,7 @@ void cmdProcessorTask(void *pvParameters)
 			}
 		}else
 		{
-			packet->payload.response=AFE_RESP_CRC_FAILED;
+			packet->payload.response=AFE_RESP_FAILED;
 			packet->crc=crc_block_calculate_bytes((uint8_t*) &packet->payload, sizeof(AFEPacketPayload));
 			memcpy(spi_buffer, packet, sizeof(AFEDataPacket));
 //			printf("AFE crc failed: crc=%d\r\n",packet->crc);

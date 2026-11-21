@@ -76,13 +76,14 @@ typedef enum{
 	AFE_CMD_FW_READ,
 	AFE_CMD_FW_WRITE,
 	AFE_CMD_FW_END,
+	AFE_ADC_READ,
 }AFECmd;
 
 typedef enum{
 	AFE_RESP_OK=0,
 	AFE_RESP_FAILED,
 	AFE_RESP_PENDING,
-	AFE_RESP_CRC_FAILED,
+	AFE_RESP_BUSY,
 }AFEResponse;
 
 
@@ -96,7 +97,8 @@ typedef enum {
 typedef enum {
     JOB_ERASE,
     JOB_WRITE,
-	JOB_VERIFY
+	JOB_VERIFY,
+	JOB_RESET,
 } JobType_t;
 
 typedef struct {
@@ -138,7 +140,12 @@ void workerTask(void *pvParameters);
 extern int SubFrameIndex;
 extern EventGroupHandle_t CommEvent;
 extern volatile uint8_t spi_buffer[2048];
-extern volatile uint16_t adc1_buffer[512];
+extern volatile uint16_t adc1_buffer[2032];
+extern volatile uint16_t adc2_buffer[2032];
+extern volatile uint8_t ADC_Capture[2032*40];
+extern volatile int ADC_Capture_Index;
+extern volatile int ADC_Capture_Ready;
+
 /* add user code end 0 */
 
 void freertos_task_create(void);

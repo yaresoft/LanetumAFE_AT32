@@ -49,7 +49,8 @@
 /* private variables ---------------------------------------------------------*/
 /* add user code begin private variables */
 volatile uint8_t spi_buffer[2048];
-volatile uint16_t adc1_buffer[512];
+volatile uint16_t adc1_buffer[2032];
+volatile uint16_t adc2_buffer[2032];
 /* add user code end private variables */
 
 /* private function prototypes --------------------------------------------*/
@@ -108,8 +109,8 @@ int main(void)
      and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
   wk_dma_channel_config(DMA1_CHANNEL1, 
                         (uint32_t)&ADC1->odt, 
-                        DMA1_CHANNEL1_MEMORY_BASE_ADDR, 
-                        DMA1_CHANNEL1_BUFFER_SIZE);
+						(uint32_t)adc1_buffer,
+                        sizeof(adc1_buffer));
   dma_channel_enable(DMA1_CHANNEL1, TRUE);
 
   /* init dma1 channel2 */
@@ -119,8 +120,8 @@ int main(void)
      and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
   wk_dma_channel_config(DMA1_CHANNEL2, 
                         (uint32_t)&ADC2->odt, 
-                        DMA1_CHANNEL2_MEMORY_BASE_ADDR, 
-                        DMA1_CHANNEL2_BUFFER_SIZE);
+						(uint32_t)adc2_buffer,
+						sizeof(adc2_buffer));
   dma_channel_enable(DMA1_CHANNEL2, TRUE);
   /* init dma1 channel3 */
   wk_dma1_channel3_init();
