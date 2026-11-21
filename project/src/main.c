@@ -99,8 +99,6 @@ int main(void)
   /* init spi1 function. */
   wk_spi1_init();
 
-  /* init exint function. */
-  wk_exint_config();
 
   /* init dma1 channel1 */
   wk_dma1_channel1_init();
@@ -110,7 +108,7 @@ int main(void)
   wk_dma_channel_config(DMA1_CHANNEL1, 
                         (uint32_t)&ADC1->odt, 
 						(uint32_t)adc1_buffer,
-                        sizeof(adc1_buffer));
+                        sizeof(adc1_buffer)/sizeof(adc1_buffer[0]));
   dma_channel_enable(DMA1_CHANNEL1, TRUE);
 
   /* init dma1 channel2 */
@@ -121,11 +119,17 @@ int main(void)
   wk_dma_channel_config(DMA1_CHANNEL2, 
                         (uint32_t)&ADC2->odt, 
 						(uint32_t)adc2_buffer,
-						sizeof(adc2_buffer));
+						sizeof(adc2_buffer)/sizeof(adc1_buffer[0]));
   dma_channel_enable(DMA1_CHANNEL2, TRUE);
+  /* init exint function. */
+  wk_exint_config();
+
+  adc_flag_clear(ADC1, ADC_OCCO_FLAG | ADC_TCF_FLAG);
+  adc_flag_clear(ADC2, ADC_OCCO_FLAG | ADC_TCF_FLAG);
   /* init dma1 channel3 */
   wk_dma1_channel3_init();
   /* config dma channel transfer parameter */
+
   /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
      and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
   wk_dma_channel_config(DMA1_CHANNEL3, 
