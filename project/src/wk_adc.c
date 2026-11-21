@@ -103,6 +103,9 @@ void wk_adc1_init(void)
   The software trigger function is adc_ordinary_software_trigger_enable(ADCx, TRUE); */
   adc_ordinary_conversion_trigger_set(ADC1, ADC_ORDINARY_TRIG_EXINT11, ADC_ORDINARY_TRIG_EDGE_RISING);
 
+  adc_ordinary_part_mode_enable(ADC1, TRUE);
+  adc_ordinary_part_count_set(ADC1, 1);
+
   adc_dma_mode_enable(ADC1, TRUE);
   adc_dma_request_repeat_enable(ADC1, TRUE);
 
@@ -172,6 +175,9 @@ void wk_adc2_init(void)
   /* When "ADC_ORDINARY_TRIG_EDGE_NONE" is selected, the external trigger source is invalid, and user can only use software trigger. \
   The software trigger function is adc_ordinary_software_trigger_enable(ADCx, TRUE); */
   adc_ordinary_conversion_trigger_set(ADC2, ADC_ORDINARY_TRIG_EXINT11, ADC_ORDINARY_TRIG_EDGE_RISING);
+
+  adc_ordinary_part_mode_enable(ADC2, TRUE);
+  adc_ordinary_part_count_set(ADC2, 1);
 
   adc_dma_mode_enable(ADC2, TRUE);
   adc_dma_request_repeat_enable(ADC2, TRUE);

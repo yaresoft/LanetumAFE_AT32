@@ -25,6 +25,7 @@
         </Mode>
         <Parameters>
             <ParametersSub name="EnableOrdinaryConversion" value="ENABLE"/>
+            <ParametersSub name="OrdinaryPartitionedMode" value="TRUE"/>
             <ParametersSub name="OrdinaryExternalTriggerEdge" value="ADC_ORDINARY_TRIG_EDGE_RISING"/>
             <ParametersSub name="DMATransferNonCombinedMode" value="TRUE"/>
             <ParametersSub name="DMARequestContinuationNonCombinedMode" value="TRUE"/>
@@ -43,6 +44,7 @@
         </Mode>
         <Parameters>
             <ParametersSub name="EnableOrdinaryConversion" value="ENABLE"/>
+            <ParametersSub name="OrdinaryPartitionedMode" value="TRUE"/>
             <ParametersSub name="OrdinaryExternalTriggerEdge" value="ADC_ORDINARY_TRIG_EDGE_RISING"/>
             <ParametersSub name="DMATransferNonCombinedMode" value="TRUE"/>
             <ParametersSub name="DMARequestContinuationNonCombinedMode" value="TRUE"/>

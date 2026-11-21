@@ -259,7 +259,7 @@ void DMA1_Channel1_IRQHandler(void)
     dma_flag_clear(DMA1_FDT1_FLAG);
     if(ADC_Capture_Ready==0)
     {
-    	memcpy(&ADC_Capture[ADC_Capture_Index*2032],&adc1_buffer[2032/2],2032);
+//    	memcpy(&ADC_Capture[ADC_Capture_Index*2032],&adc1_buffer[2032/2],2032);
     }
     /* add user code end DMA1_FDT1_FLAG */ 
   }
@@ -271,7 +271,7 @@ void DMA1_Channel1_IRQHandler(void)
     dma_flag_clear(DMA1_HDT1_FLAG);
     if(ADC_Capture_Ready==0)
 	{
-		memcpy(&ADC_Capture[ADC_Capture_Index*2032],&adc1_buffer[0],2032);
+//		memcpy(&ADC_Capture[ADC_Capture_Index*2032],&adc1_buffer[0],2032);
 	}
     /* add user code end DMA1_HDT1_FLAG */ 
   }
@@ -307,7 +307,7 @@ void DMA1_Channel2_IRQHandler(void)
     dma_flag_clear(DMA1_FDT2_FLAG);
     if(ADC_Capture_Ready==0)
 	{
-		memcpy(&ADC_Capture[ADC_Capture_Index*2032+40640],&adc2_buffer[2032/2],2032);
+//		memcpy(&ADC_Capture[ADC_Capture_Index*2032+40640],&adc2_buffer[2032/2],2032);
 		ADC_Capture_Index++;
 		if(ADC_Capture_Index==20)
 		{
@@ -325,7 +325,7 @@ void DMA1_Channel2_IRQHandler(void)
     dma_flag_clear(DMA1_HDT2_FLAG);
     if(ADC_Capture_Ready==0)
 	{
-		memcpy(&ADC_Capture[ADC_Capture_Index*2032+40640],&adc2_buffer[0],2032);
+//		memcpy(&ADC_Capture[ADC_Capture_Index*2032+40640],&adc2_buffer[0],2032);
 		ADC_Capture_Index++;
 		if(ADC_Capture_Index==20)
 		{
