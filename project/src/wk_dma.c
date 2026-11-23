@@ -39,7 +39,7 @@ void wk_dma1_channel1_init(void)
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_HALFWORD;
   dma_init_struct.peripheral_inc_enable = FALSE;
-  dma_init_struct.priority = DMA_PRIORITY_LOW;
+  dma_init_struct.priority = DMA_PRIORITY_VERY_HIGH;
   dma_init_struct.loop_mode_enable = TRUE;
   dma_init(DMA1_CHANNEL1, &dma_init_struct);
 
@@ -81,7 +81,7 @@ void wk_dma1_channel2_init(void)
   dma_init_struct.memory_inc_enable = TRUE;
   dma_init_struct.peripheral_data_width = DMA_PERIPHERAL_DATA_WIDTH_HALFWORD;
   dma_init_struct.peripheral_inc_enable = FALSE;
-  dma_init_struct.priority = DMA_PRIORITY_LOW;
+  dma_init_struct.priority = DMA_PRIORITY_VERY_HIGH;
   dma_init_struct.loop_mode_enable = TRUE;
   dma_init(DMA1_CHANNEL2, &dma_init_struct);
 
@@ -104,19 +104,19 @@ void wk_dma1_channel2_init(void)
 }
 
 /**
-  * @brief  init dma1 channel3 for "spi1_tx"
+  * @brief  init dma2 channel1 for "spi1_tx"
   * @param  none
   * @retval none
   */
-void wk_dma1_channel3_init(void)
+void wk_dma2_channel1_init(void)
 {
-  /* add user code begin dma1_channel3 0 */
+  /* add user code begin dma2_channel1 0 */
 
-  /* add user code end dma1_channel3 0 */
+  /* add user code end dma2_channel1 0 */
 
   dma_init_type dma_init_struct;
 
-  dma_reset(DMA1_CHANNEL3);
+  dma_reset(DMA2_CHANNEL1);
   dma_default_para_init(&dma_init_struct);
   dma_init_struct.direction = DMA_DIR_MEMORY_TO_PERIPHERAL;
   dma_init_struct.memory_data_width = DMA_MEMORY_DATA_WIDTH_BYTE;
@@ -125,37 +125,37 @@ void wk_dma1_channel3_init(void)
   dma_init_struct.peripheral_inc_enable = FALSE;
   dma_init_struct.priority = DMA_PRIORITY_VERY_HIGH;
   dma_init_struct.loop_mode_enable = TRUE;
-  dma_init(DMA1_CHANNEL3, &dma_init_struct);
+  dma_init(DMA2_CHANNEL1, &dma_init_struct);
 
   /* dmamux function enable */
-  dmamux_enable(DMA1, TRUE);
-  dmamux_init(DMA1MUX_CHANNEL3, DMAMUX_DMAREQ_ID_SPI1_TX);
+  dmamux_enable(DMA2, TRUE);
+  dmamux_init(DMA2MUX_CHANNEL1, DMAMUX_DMAREQ_ID_SPI1_TX);
 
-  /* enable dma1 channel3 full data transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL3, DMA_FDT_INT, TRUE);
+  /* enable dma2 channel1 full data transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL1, DMA_FDT_INT, TRUE);
 
-  /* enable dma1 channel3 error transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL3, DMA_DTERR_INT, TRUE);
+  /* enable dma2 channel1 error transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL1, DMA_DTERR_INT, TRUE);
 
-  /* add user code begin dma1_channel3 1 */
+  /* add user code begin dma2_channel1 1 */
 
-  /* add user code end dma1_channel3 1 */
+  /* add user code end dma2_channel1 1 */
 }
 
 /**
-  * @brief  init dma1 channel4 for "spi1_rx"
+  * @brief  init dma2 channel2 for "spi1_rx"
   * @param  none
   * @retval none
   */
-void wk_dma1_channel4_init(void)
+void wk_dma2_channel2_init(void)
 {
-  /* add user code begin dma1_channel4 0 */
+  /* add user code begin dma2_channel2 0 */
 
-  /* add user code end dma1_channel4 0 */
-
+  /* add user code end dma2_channel2 0 */
+  
   dma_init_type dma_init_struct;
 
-  dma_reset(DMA1_CHANNEL4);
+  dma_reset(DMA2_CHANNEL2);
   dma_default_para_init(&dma_init_struct);
   dma_init_struct.direction = DMA_DIR_PERIPHERAL_TO_MEMORY;
   dma_init_struct.memory_data_width = DMA_MEMORY_DATA_WIDTH_BYTE;
@@ -164,37 +164,37 @@ void wk_dma1_channel4_init(void)
   dma_init_struct.peripheral_inc_enable = FALSE;
   dma_init_struct.priority = DMA_PRIORITY_HIGH;
   dma_init_struct.loop_mode_enable = TRUE;
-  dma_init(DMA1_CHANNEL4, &dma_init_struct);
+  dma_init(DMA2_CHANNEL2, &dma_init_struct);
 
   /* dmamux function enable */
-  dmamux_enable(DMA1, TRUE);
-  dmamux_init(DMA1MUX_CHANNEL4, DMAMUX_DMAREQ_ID_SPI1_RX);
+  dmamux_enable(DMA2, TRUE);
+  dmamux_init(DMA2MUX_CHANNEL2, DMAMUX_DMAREQ_ID_SPI1_RX);
 
-  /* enable dma1 channel4 full data transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL4, DMA_FDT_INT, TRUE);
+  /* enable dma2 channel2 full data transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL2, DMA_FDT_INT, TRUE);
 
-  /* enable dma1 channel4 error transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL4, DMA_DTERR_INT, TRUE);
+  /* enable dma2 channel2 error transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL2, DMA_DTERR_INT, TRUE);
 
-  /* add user code begin dma1_channel4 1 */
+  /* add user code begin dma2_channel2 1 */
 
-  /* add user code end dma1_channel4 1 */
+  /* add user code end dma2_channel2 1 */
 }
 
 /**
-  * @brief  init dma1 channel5 for "usart1_rx"
+  * @brief  init dma2 channel3 for "usart1_rx"
   * @param  none
   * @retval none
   */
-void wk_dma1_channel5_init(void)
+void wk_dma2_channel3_init(void)
 {
-  /* add user code begin dma1_channel5 0 */
+  /* add user code begin dma2_channel3 0 */
 
-  /* add user code end dma1_channel5 0 */
+  /* add user code end dma2_channel3 0 */
 
   dma_init_type dma_init_struct;
 
-  dma_reset(DMA1_CHANNEL5);
+  dma_reset(DMA2_CHANNEL3);
   dma_default_para_init(&dma_init_struct);
   dma_init_struct.direction = DMA_DIR_PERIPHERAL_TO_MEMORY;
   dma_init_struct.memory_data_width = DMA_MEMORY_DATA_WIDTH_BYTE;
@@ -203,40 +203,40 @@ void wk_dma1_channel5_init(void)
   dma_init_struct.peripheral_inc_enable = FALSE;
   dma_init_struct.priority = DMA_PRIORITY_LOW;
   dma_init_struct.loop_mode_enable = FALSE;
-  dma_init(DMA1_CHANNEL5, &dma_init_struct);
+  dma_init(DMA2_CHANNEL3, &dma_init_struct);
 
   /* dmamux function enable */
-  dmamux_enable(DMA1, TRUE);
-  dmamux_init(DMA1MUX_CHANNEL5, DMAMUX_DMAREQ_ID_USART1_RX);
+  dmamux_enable(DMA2, TRUE);
+  dmamux_init(DMA2MUX_CHANNEL3, DMAMUX_DMAREQ_ID_USART1_RX);
 
-  /* enable dma1 channel5 full data transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL5, DMA_FDT_INT, TRUE);
+  /* enable dma2 channel3 full data transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL3, DMA_FDT_INT, TRUE);
 
-  /* enable dma1 channel5 half data transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL5, DMA_HDT_INT, TRUE);
+  /* enable dma2 channel3 half data transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL3, DMA_HDT_INT, TRUE);
 
-  /* enable dma1 channel5 error transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL5, DMA_DTERR_INT, TRUE);
+  /* enable dma2 channel3 error transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL3, DMA_DTERR_INT, TRUE);
 
-  /* add user code begin dma1_channel5 1 */
+  /* add user code begin dma2_channel3 1 */
 
-  /* add user code end dma1_channel5 1 */
+  /* add user code end dma2_channel3 1 */
 }
 
 /**
-  * @brief  init dma1 channel6 for "usart1_tx"
+  * @brief  init dma2 channel4 for "usart1_tx"
   * @param  none
   * @retval none
   */
-void wk_dma1_channel6_init(void)
+void wk_dma2_channel4_init(void)
 {
-  /* add user code begin dma1_channel6 0 */
+  /* add user code begin dma2_channel4 0 */
 
-  /* add user code end dma1_channel6 0 */
+  /* add user code end dma2_channel4 0 */
 
   dma_init_type dma_init_struct;
 
-  dma_reset(DMA1_CHANNEL6);
+  dma_reset(DMA2_CHANNEL4);
   dma_default_para_init(&dma_init_struct);
   dma_init_struct.direction = DMA_DIR_MEMORY_TO_PERIPHERAL;
   dma_init_struct.memory_data_width = DMA_MEMORY_DATA_WIDTH_BYTE;
@@ -245,24 +245,24 @@ void wk_dma1_channel6_init(void)
   dma_init_struct.peripheral_inc_enable = FALSE;
   dma_init_struct.priority = DMA_PRIORITY_LOW;
   dma_init_struct.loop_mode_enable = FALSE;
-  dma_init(DMA1_CHANNEL6, &dma_init_struct);
+  dma_init(DMA2_CHANNEL4, &dma_init_struct);
 
   /* dmamux function enable */
-  dmamux_enable(DMA1, TRUE);
-  dmamux_init(DMA1MUX_CHANNEL6, DMAMUX_DMAREQ_ID_USART1_TX);
+  dmamux_enable(DMA2, TRUE);
+  dmamux_init(DMA2MUX_CHANNEL4, DMAMUX_DMAREQ_ID_USART1_TX);
 
-  /* enable dma1 channel6 full data transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL6, DMA_FDT_INT, TRUE);
+  /* enable dma2 channel4 full data transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL4, DMA_FDT_INT, TRUE);
 
-  /* enable dma1 channel6 half data transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL6, DMA_HDT_INT, TRUE);
+  /* enable dma2 channel4 half data transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL4, DMA_HDT_INT, TRUE);
 
-  /* enable dma1 channel6 error transfer interrupt */
-  dma_interrupt_enable(DMA1_CHANNEL6, DMA_DTERR_INT, TRUE);
+  /* enable dma2 channel4 error transfer interrupt */
+  dma_interrupt_enable(DMA2_CHANNEL4, DMA_DTERR_INT, TRUE);
 
-  /* add user code begin dma1_channel6 1 */
+  /* add user code begin dma2_channel4 1 */
 
-  /* add user code end dma1_channel6 1 */
+  /* add user code end dma2_channel4 1 */
 }
 
 /**

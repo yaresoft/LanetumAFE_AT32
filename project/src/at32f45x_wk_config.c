@@ -188,6 +188,9 @@ void wk_periph_clock_config(void)
   /* enable dma1 periph clock */
   crm_periph_clock_enable(CRM_DMA1_PERIPH_CLOCK, TRUE);
 
+  /* enable dma2 periph clock */
+  crm_periph_clock_enable(CRM_DMA2_PERIPH_CLOCK, TRUE);
+
   /* enable aes periph clock */
   crm_periph_clock_enable(CRM_AES_PERIPH_CLOCK, TRUE);
 
@@ -233,14 +236,14 @@ void wk_nvic_config(void)
   nvic_irq_enable(EXINT4_IRQn, 5, 0);
   nvic_irq_enable(DMA1_Channel1_IRQn, 5, 0);
   nvic_irq_enable(DMA1_Channel2_IRQn, 5, 0);
-  nvic_irq_enable(DMA1_Channel3_IRQn, 5, 0);
-  nvic_irq_enable(DMA1_Channel4_IRQn, 5, 0);
-  nvic_irq_enable(DMA1_Channel5_IRQn, 5, 0);
-  nvic_irq_enable(DMA1_Channel6_IRQn, 5, 0);
   nvic_irq_enable(ADC1_2_IRQn, 5, 0);
   nvic_irq_enable(SPI1_IRQn, 5, 0);
   nvic_irq_enable(USART1_IRQn, 5, 0);
   nvic_irq_enable(TMR6_DAC_GLOBAL_IRQn, 0, 0);
+  nvic_irq_enable(DMA2_Channel1_IRQn, 5, 0);
+  nvic_irq_enable(DMA2_Channel2_IRQn, 5, 0);
+  nvic_irq_enable(DMA2_Channel3_IRQn, 5, 0);
+  nvic_irq_enable(DMA2_Channel4_IRQn, 5, 0);
 }
 
 /* add user code begin 1 */

@@ -215,25 +215,28 @@
             <ParametersSub name="Interrupt_DTERR" value="ENABLE"/>
         </ADC2>
         <SPI1_RX>
-            <ParametersSub name="Instance" value="DMA1_Channel4"/>
-            <ParametersSub name="Mode" value="TRUE"/>
-            <ParametersSub name="Priority" value="DMA_PRIORITY_MEDIUM"/>
-            <ParametersSub name="SyncRequestCount" value="1"/>
-            <ParametersSub name="RequestCount" value="1"/>
-            <ParametersSub name="Interrupt_FDT" value="ENABLE"/>
-            <ParametersSub name="Interrupt_DTERR" value="ENABLE"/>
-        </SPI1_RX>
-        <SPI1_TX>
-            <ParametersSub name="Instance" value="DMA1_Channel3"/>
+            <ParametersSub name="Instance" value="DMA2_Channel2"/>
+            <ParametersSub name="DMANum" value="DMA2"/>
             <ParametersSub name="Mode" value="TRUE"/>
             <ParametersSub name="Priority" value="DMA_PRIORITY_HIGH"/>
             <ParametersSub name="SyncRequestCount" value="1"/>
             <ParametersSub name="RequestCount" value="1"/>
             <ParametersSub name="Interrupt_FDT" value="ENABLE"/>
             <ParametersSub name="Interrupt_DTERR" value="ENABLE"/>
+        </SPI1_RX>
+        <SPI1_TX>
+            <ParametersSub name="Instance" value="DMA2_Channel1"/>
+            <ParametersSub name="DMANum" value="DMA2"/>
+            <ParametersSub name="Mode" value="TRUE"/>
+            <ParametersSub name="Priority" value="DMA_PRIORITY_VERY_HIGH"/>
+            <ParametersSub name="SyncRequestCount" value="1"/>
+            <ParametersSub name="RequestCount" value="1"/>
+            <ParametersSub name="Interrupt_FDT" value="ENABLE"/>
+            <ParametersSub name="Interrupt_DTERR" value="ENABLE"/>
         </SPI1_TX>
         <USART1_RX>
-            <ParametersSub name="Instance" value="DMA1_Channel5"/>
+            <ParametersSub name="Instance" value="DMA2_Channel3"/>
+            <ParametersSub name="DMANum" value="DMA2"/>
             <ParametersSub name="SyncRequestCount" value="1"/>
             <ParametersSub name="RequestCount" value="1"/>
             <ParametersSub name="Interrupt_FDT" value="ENABLE"/>
@@ -241,7 +244,8 @@
             <ParametersSub name="Interrupt_DTERR" value="ENABLE"/>
         </USART1_RX>
         <USART1_TX>
-            <ParametersSub name="Instance" value="DMA1_Channel6"/>
+            <ParametersSub name="Instance" value="DMA2_Channel4"/>
+            <ParametersSub name="DMANum" value="DMA2"/>
             <ParametersSub name="SyncRequestCount" value="1"/>
             <ParametersSub name="RequestCount" value="1"/>
             <ParametersSub name="Interrupt_FDT" value="ENABLE"/>
@@ -259,13 +263,13 @@
         <EXINT4_IRQHandler>1;5;0;1;0;1</EXINT4_IRQHandler>
         <DMA1_Channel1_IRQHandler>1;5;0;1;0;1</DMA1_Channel1_IRQHandler>
         <DMA1_Channel2_IRQHandler>1;5;0;1;0;1</DMA1_Channel2_IRQHandler>
-        <DMA1_Channel3_IRQHandler>1;5;0;1;0;1</DMA1_Channel3_IRQHandler>
-        <DMA1_Channel4_IRQHandler>1;5;0;1;0;1</DMA1_Channel4_IRQHandler>
-        <DMA1_Channel5_IRQHandler>1;5;0;1;0;1</DMA1_Channel5_IRQHandler>
-        <DMA1_Channel6_IRQHandler>1;5;0;1;0;1</DMA1_Channel6_IRQHandler>
         <ADC1_2_IRQHandler>1;5;0;1;0;1</ADC1_2_IRQHandler>
         <SPI1_IRQHandler>1;5;0;1;0;1</SPI1_IRQHandler>
         <USART1_IRQHandler>1;5;0;1;0;1</USART1_IRQHandler>
+        <DMA2_Channel1_IRQHandler>1;5;0;1;0;1</DMA2_Channel1_IRQHandler>
+        <DMA2_Channel2_IRQHandler>1;5;0;1;0;1</DMA2_Channel2_IRQHandler>
+        <DMA2_Channel3_IRQHandler>1;5;0;1;0;1</DMA2_Channel3_IRQHandler>
+        <DMA2_Channel4_IRQHandler>1;5;0;1;0;1</DMA2_Channel4_IRQHandler>
         <AES_IRQHandler>0;5;0;1;0;0</AES_IRQHandler>
         <TRNG_IRQHandler>0;5;0;1;0;0</TRNG_IRQHandler>
         <FPU_IRQHandler>0;5;0;1;0;0</FPU_IRQHandler>
@@ -360,15 +364,15 @@
         <RankSub RankNum="12" FixPosFlag="FALSE" FuncName="wk_adc2_init" InstanceName="ADC2" CodeSection="adc2 function" MainDoNotCallFlag="FALSE"/>
         <RankSub RankNum="48" FixPosFlag="FALSE" FuncName="wk_spi1_init" InstanceName="SPI1" CodeSection="spi1 function" MainDoNotCallFlag="FALSE"/>
         <RankSub RankNum="65" FixPosFlag="FALSE" FuncName="wk_exint_config" InstanceName="EXINT" CodeSection="exint function" MainDoNotCallFlag="FALSE"/>
-        <RankSub RankNum="13" FixPosFlag="FALSE" FuncName="wk_dma1_channel1_init" InstanceName="DMA1_Channel1" CodeSection="dma1_channel1_init" MainDoNotCallFlag="FALSE"/>
-        <RankSub RankNum="15" FixPosFlag="FALSE" FuncName="wk_dma1_channel3_init" InstanceName="DMA1_Channel3" CodeSection="dma1_channel3_init" MainDoNotCallFlag="FALSE"/>
-        <RankSub RankNum="16" FixPosFlag="FALSE" FuncName="wk_dma1_channel4_init" InstanceName="DMA1_Channel4" CodeSection="dma1_channel4_init" MainDoNotCallFlag="FALSE"/>
-        <RankSub RankNum="17" FixPosFlag="FALSE" FuncName="wk_dma1_channel5_init" InstanceName="DMA1_Channel5" CodeSection="dma1_channel5_init" MainDoNotCallFlag="FALSE"/>
-        <RankSub RankNum="18" FixPosFlag="FALSE" FuncName="wk_dma1_channel6_init" InstanceName="DMA1_Channel6" CodeSection="dma1_channel6_init" MainDoNotCallFlag="FALSE"/>
         <RankSub RankNum="34" FixPosFlag="FALSE" FuncName="wk_usart1_init" InstanceName="USART1" CodeSection="usart1 function" MainDoNotCallFlag="FALSE"/>
         <RankSub RankNum="61" FixPosFlag="FALSE" FuncName="wk_crc_init" InstanceName="CRC" CodeSection="crc function" MainDoNotCallFlag="FALSE"/>
         <RankSub RankNum="83" FixPosFlag="FALSE" FuncName="wk_aes_init" InstanceName="AES" CodeSection="aes function" MainDoNotCallFlag="FALSE"/>
         <RankSub RankNum="84" FixPosFlag="FALSE" FuncName="wk_trng_init" InstanceName="TRNG" CodeSection="trng function" MainDoNotCallFlag="FALSE"/>
+        <RankSub RankNum="20" FixPosFlag="FALSE" FuncName="wk_dma2_channel1_init" InstanceName="DMA2_Channel1" CodeSection="dma2_channel1_init" MainDoNotCallFlag="FALSE"/>
+        <RankSub RankNum="21" FixPosFlag="FALSE" FuncName="wk_dma2_channel2_init" InstanceName="DMA2_Channel2" CodeSection="dma2_channel2_init" MainDoNotCallFlag="FALSE"/>
+        <RankSub RankNum="13" FixPosFlag="FALSE" FuncName="wk_dma1_channel1_init" InstanceName="DMA1_Channel1" CodeSection="dma1_channel1_init" MainDoNotCallFlag="FALSE"/>
         <RankSub RankNum="14" FixPosFlag="FALSE" FuncName="wk_dma1_channel2_init" InstanceName="DMA1_Channel2" CodeSection="dma1_channel2_init" MainDoNotCallFlag="FALSE"/>
+        <RankSub RankNum="22" FixPosFlag="FALSE" FuncName="wk_dma2_channel3_init" InstanceName="DMA2_Channel3" CodeSection="dma2_channel3_init" MainDoNotCallFlag="FALSE"/>
+        <RankSub RankNum="23" FixPosFlag="FALSE" FuncName="wk_dma2_channel4_init" InstanceName="DMA2_Channel4" CodeSection="dma2_channel4_init" MainDoNotCallFlag="FALSE"/>
     </FunctionRankInfo>
 </Root>

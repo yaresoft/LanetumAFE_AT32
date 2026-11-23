@@ -329,7 +329,7 @@ void StartDefaultTask(void *pvParameters)
 	ptr[1] = UID2;
 	ptr[2] = UID3;
 	int index = 0;
-	uint32_t t = meta->id * 5;
+	uint32_t t = meta->id * 8;
 
 	vTaskDelay(t);
 	wk_usart1_init();
@@ -798,6 +798,8 @@ void cmdProcessorTask(void *pvParameters)
 
 					}else
 					{
+						packet->payload.data[0]=ADC_Capture_Ready1;
+						packet->payload.data[1]=ADC_Capture_Ready2;
 						LastResponse=AFE_RESP_FAILED;
 					}
 					LastCommand=AFE_ADC_READ;

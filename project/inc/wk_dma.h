@@ -51,17 +51,17 @@ extern "C" {
   /* init dma1 channel2 */
   void wk_dma1_channel2_init(void);
 
-  /* init dma1 channel3 */
-  void wk_dma1_channel3_init(void);
+  /* init dma2 channel1 */
+  void wk_dma2_channel1_init(void);
 
-  /* init dma1 channel4 */
-  void wk_dma1_channel4_init(void);
+  /* init dma2 channel2 */
+  void wk_dma2_channel2_init(void);
 
-  /* init dma1 channel5 */
-  void wk_dma1_channel5_init(void);
+  /* init dma2 channel3 */
+  void wk_dma2_channel3_init(void);
 
-  /* init dma1 channel6 */
-  void wk_dma1_channel6_init(void);
+  /* init dma2 channel4 */
+  void wk_dma2_channel4_init(void);
 
   /* config dma channel transfer parameter */
   /* user need to modify parameters memory_base_addr and buffer_size */

@@ -362,189 +362,6 @@ void DMA1_Channel2_IRQHandler(void)
 }
 
 /**
-  * @brief  this function handles DMA1 Channel 3 handler.
-  * @param  none
-  * @retval none
-  */
-void DMA1_Channel3_IRQHandler(void)
-{
-  /* add user code begin DMA1_Channel3_IRQ 0 */
-
-  /* add user code end DMA1_Channel3_IRQ 0 */
-
-  if(dma_interrupt_flag_get(DMA1_FDT3_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_FDT3_FLAG */
-    /* handle full data transfer and clear flag */
-    dma_flag_clear(DMA1_FDT3_FLAG);
-    if(CommEvent)
-    {
-    	BaseType_t xHigherPriorityTaskWoken, xResult;
-
-    		/* xHigherPriorityTaskWoken must be initialised to pdFALSE. */
-    	xHigherPriorityTaskWoken = pdFALSE;
-
-    	xResult = xEventGroupSetBitsFromISR(CommEvent, EV_SPI_TX_DONE, &xHigherPriorityTaskWoken );
-
-    	/* Was the message posted successfully? */
-    	if( xResult != pdFAIL )
-    	{
-    		/* If xHigherPriorityTaskWoken is now set to pdTRUE then a context
-    		   switch should be requested. The macro used is port specific and will
-    		   be either portYIELD_FROM_ISR() or portEND_SWITCHING_ISR() - refer to
-    		   the documentation page for the port being used. */
-    		portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-    	}
-    }
-
-    /* add user code end DMA1_FDT3_FLAG */ 
-  }
-
-  if(dma_interrupt_flag_get(DMA1_DTERR3_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_DTERR3_FLAG */
-    /* handle error transfer and clear flag */
-    dma_flag_clear(DMA1_DTERR3_FLAG);
-    /* add user code end DMA1_DTERR3_FLAG */ 
-  }
-
-  /* add user code begin DMA1_Channel3_IRQ 1 */
-
-  /* add user code end DMA1_Channel3_IRQ 1 */
-}
-
-/**
-  * @brief  this function handles DMA1 Channel 4 handler.
-  * @param  none
-  * @retval none
-  */
-void DMA1_Channel4_IRQHandler(void)
-{
-  /* add user code begin DMA1_Channel4_IRQ 0 */
-
-  /* add user code end DMA1_Channel4_IRQ 0 */
-
-  if(dma_interrupt_flag_get(DMA1_FDT4_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_FDT4_FLAG */
-    /* handle full data transfer and clear flag */
-    dma_flag_clear(DMA1_FDT4_FLAG);
-    if(CommEvent)
-    {
-		BaseType_t xHigherPriorityTaskWoken, xResult;
-
-			/* xHigherPriorityTaskWoken must be initialised to pdFALSE. */
-		xHigherPriorityTaskWoken = pdFALSE;
-
-		xResult = xEventGroupSetBitsFromISR(CommEvent, EV_SPI_RX_DONE, &xHigherPriorityTaskWoken );
-
-		/* Was the message posted successfully? */
-		if( xResult != pdFAIL )
-		{
-			/* If xHigherPriorityTaskWoken is now set to pdTRUE then a context
-			   switch should be requested. The macro used is port specific and will
-			   be either portYIELD_FROM_ISR() or portEND_SWITCHING_ISR() - refer to
-			   the documentation page for the port being used. */
-			portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-		}
-    }
-    /* add user code end DMA1_FDT4_FLAG */ 
-  }
-
-  if(dma_interrupt_flag_get(DMA1_DTERR4_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_DTERR4_FLAG */
-    /* handle error transfer and clear flag */
-    dma_flag_clear(DMA1_DTERR4_FLAG);
-    /* add user code end DMA1_DTERR4_FLAG */ 
-  }
-
-  /* add user code begin DMA1_Channel4_IRQ 1 */
-
-  /* add user code end DMA1_Channel4_IRQ 1 */
-}
-
-/**
-  * @brief  this function handles DMA1 Channel 5 handler.
-  * @param  none
-  * @retval none
-  */
-void DMA1_Channel5_IRQHandler(void)
-{
-  /* add user code begin DMA1_Channel5_IRQ 0 */
-
-  /* add user code end DMA1_Channel5_IRQ 0 */
-
-  if(dma_interrupt_flag_get(DMA1_FDT5_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_FDT5_FLAG */
-    /* handle full data transfer and clear flag */
-    dma_flag_clear(DMA1_FDT5_FLAG);
-    /* add user code end DMA1_FDT5_FLAG */ 
-  }
-
-  if(dma_interrupt_flag_get(DMA1_HDT5_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_HDT5_FLAG */
-    /* handle half data transfer and clear flag */
-    dma_flag_clear(DMA1_HDT5_FLAG);
-    /* add user code end DMA1_HDT5_FLAG */ 
-  }
-
-  if(dma_interrupt_flag_get(DMA1_DTERR5_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_DTERR5_FLAG */
-    /* handle error transfer and clear flag */
-    dma_flag_clear(DMA1_DTERR5_FLAG);
-    /* add user code end DMA1_DTERR5_FLAG */ 
-  }
-
-  /* add user code begin DMA1_Channel5_IRQ 1 */
-
-  /* add user code end DMA1_Channel5_IRQ 1 */
-}
-
-/**
-  * @brief  this function handles DMA1 Channel 6 handler.
-  * @param  none
-  * @retval none
-  */
-void DMA1_Channel6_IRQHandler(void)
-{
-  /* add user code begin DMA1_Channel6_IRQ 0 */
-
-  /* add user code end DMA1_Channel6_IRQ 0 */
-
-  if(dma_interrupt_flag_get(DMA1_FDT6_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_FDT6_FLAG */
-    /* handle full data transfer and clear flag */
-    dma_flag_clear(DMA1_FDT6_FLAG);
-    /* add user code end DMA1_FDT6_FLAG */ 
-  }
-
-  if(dma_interrupt_flag_get(DMA1_HDT6_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_HDT6_FLAG */
-    /* handle half data transfer and clear flag */
-    dma_flag_clear(DMA1_HDT6_FLAG);
-    /* add user code end DMA1_HDT6_FLAG */ 
-  }
-
-  if(dma_interrupt_flag_get(DMA1_DTERR6_FLAG) != RESET)
-  {   
-    /* add user code begin DMA1_DTERR6_FLAG */
-    /* handle error transfer and clear flag */
-    dma_flag_clear(DMA1_DTERR6_FLAG);
-    /* add user code end DMA1_DTERR6_FLAG */ 
-  }
-
-  /* add user code begin DMA1_Channel6_IRQ 1 */
-
-  /* add user code end DMA1_Channel6_IRQ 1 */
-}
-
-/**
   * @brief  this function handles ADC1 2 handler.
   * @param  none
   * @retval none
@@ -608,6 +425,188 @@ void TMR6_DAC_GLOBAL_IRQHandler(void)
   /* add user code begin TMR6_DAC_GLOBAL_IRQ 1 */
 
   /* add user code end TMR6_DAC_GLOBAL_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA2 Channel 1 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA2_Channel1_IRQHandler(void)
+{
+  /* add user code begin DMA2_Channel1_IRQ 0 */
+
+  /* add user code end DMA2_Channel1_IRQ 0 */
+
+  if(dma_interrupt_flag_get(DMA2_FDT1_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_FDT1_FLAG */
+    /* handle full data transfer and clear flag */
+    dma_flag_clear(DMA2_FDT1_FLAG);
+    if(CommEvent)
+    {
+    	BaseType_t xHigherPriorityTaskWoken, xResult;
+
+    		/* xHigherPriorityTaskWoken must be initialised to pdFALSE. */
+    	xHigherPriorityTaskWoken = pdFALSE;
+
+    	xResult = xEventGroupSetBitsFromISR(CommEvent, EV_SPI_TX_DONE, &xHigherPriorityTaskWoken );
+
+    	/* Was the message posted successfully? */
+    	if( xResult != pdFAIL )
+    	{
+    		/* If xHigherPriorityTaskWoken is now set to pdTRUE then a context
+    		   switch should be requested. The macro used is port specific and will
+    		   be either portYIELD_FROM_ISR() or portEND_SWITCHING_ISR() - refer to
+    		   the documentation page for the port being used. */
+    		portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+    	}
+    }
+    /* add user code end DMA2_FDT1_FLAG */ 
+  }
+
+  if(dma_interrupt_flag_get(DMA2_DTERR1_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_DTERR1_FLAG */
+    /* handle error transfer and clear flag */
+    dma_flag_clear(DMA2_DTERR1_FLAG);
+    /* add user code end DMA2_DTERR1_FLAG */ 
+  }
+
+  /* add user code begin DMA2_Channel1_IRQ 1 */
+
+  /* add user code end DMA2_Channel1_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA2 Channel 2 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA2_Channel2_IRQHandler(void)
+{
+  /* add user code begin DMA2_Channel2_IRQ 0 */
+
+  /* add user code end DMA2_Channel2_IRQ 0 */
+
+  if(dma_interrupt_flag_get(DMA2_FDT2_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_FDT2_FLAG */
+    /* handle full data transfer and clear flag */
+    dma_flag_clear(DMA2_FDT2_FLAG);
+    if(CommEvent)
+    {
+		BaseType_t xHigherPriorityTaskWoken, xResult;
+
+			/* xHigherPriorityTaskWoken must be initialised to pdFALSE. */
+		xHigherPriorityTaskWoken = pdFALSE;
+
+		xResult = xEventGroupSetBitsFromISR(CommEvent, EV_SPI_RX_DONE, &xHigherPriorityTaskWoken );
+
+		/* Was the message posted successfully? */
+		if( xResult != pdFAIL )
+		{
+			/* If xHigherPriorityTaskWoken is now set to pdTRUE then a context
+			   switch should be requested. The macro used is port specific and will
+			   be either portYIELD_FROM_ISR() or portEND_SWITCHING_ISR() - refer to
+			   the documentation page for the port being used. */
+			portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+		}
+    }
+    /* add user code end DMA2_FDT2_FLAG */ 
+  }
+
+  if(dma_interrupt_flag_get(DMA2_DTERR2_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_DTERR2_FLAG */
+    /* handle error transfer and clear flag */
+    dma_flag_clear(DMA2_DTERR2_FLAG);
+    /* add user code end DMA2_DTERR2_FLAG */ 
+  }
+
+  /* add user code begin DMA2_Channel2_IRQ 1 */
+
+  /* add user code end DMA2_Channel2_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA2 Channel 3 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA2_Channel3_IRQHandler(void)
+{
+  /* add user code begin DMA2_Channel3_IRQ 0 */
+
+  /* add user code end DMA2_Channel3_IRQ 0 */
+
+  if(dma_interrupt_flag_get(DMA2_FDT3_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_FDT3_FLAG */
+    /* handle full data transfer and clear flag */
+    dma_flag_clear(DMA2_FDT3_FLAG);
+    /* add user code end DMA2_FDT3_FLAG */ 
+  }
+
+  if(dma_interrupt_flag_get(DMA2_HDT3_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_HDT3_FLAG */
+    /* handle half data transfer and clear flag */
+    dma_flag_clear(DMA2_HDT3_FLAG);
+    /* add user code end DMA2_HDT3_FLAG */ 
+  }
+
+  if(dma_interrupt_flag_get(DMA2_DTERR3_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_DTERR3_FLAG */
+    /* handle error transfer and clear flag */
+    dma_flag_clear(DMA2_DTERR3_FLAG);
+    /* add user code end DMA2_DTERR3_FLAG */ 
+  }
+
+  /* add user code begin DMA2_Channel3_IRQ 1 */
+
+  /* add user code end DMA2_Channel3_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA2 Channel 4 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA2_Channel4_IRQHandler(void)
+{
+  /* add user code begin DMA2_Channel4_IRQ 0 */
+
+  /* add user code end DMA2_Channel4_IRQ 0 */
+
+  if(dma_interrupt_flag_get(DMA2_FDT4_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_FDT4_FLAG */
+    /* handle full data transfer and clear flag */
+    dma_flag_clear(DMA2_FDT4_FLAG);
+    /* add user code end DMA2_FDT4_FLAG */ 
+  }
+
+  if(dma_interrupt_flag_get(DMA2_HDT4_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_HDT4_FLAG */
+    /* handle half data transfer and clear flag */
+    dma_flag_clear(DMA2_HDT4_FLAG);
+    /* add user code end DMA2_HDT4_FLAG */ 
+  }
+
+  if(dma_interrupt_flag_get(DMA2_DTERR4_FLAG) != RESET)
+  {   
+    /* add user code begin DMA2_DTERR4_FLAG */
+    /* handle error transfer and clear flag */
+    dma_flag_clear(DMA2_DTERR4_FLAG);
+    /* add user code end DMA2_DTERR4_FLAG */ 
+  }
+
+  /* add user code begin DMA2_Channel4_IRQ 1 */
+
+  /* add user code end DMA2_Channel4_IRQ 1 */
 }
 
 /* add user code begin 1 */

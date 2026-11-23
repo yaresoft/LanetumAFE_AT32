@@ -99,6 +99,40 @@ int main(void)
   /* init spi1 function. */
   wk_spi1_init();
 
+  /* usart1 already supports printf. */
+  /* init usart1 function. */
+//  wk_usart1_init();
+
+  /* init crc function. */
+  wk_crc_init();
+
+  /* init aes function. */
+  wk_aes_init();
+
+  /* init trng function. */
+  wk_trng_init();
+
+  /* init dma2 channel1 */
+  wk_dma2_channel1_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
+     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA2_CHANNEL1, 
+                        (uint32_t)&SPI1->dt, 
+						(uint32_t)spi_buffer,
+						sizeof(spi_buffer));
+  dma_channel_enable(DMA2_CHANNEL1, TRUE);
+
+  /* init dma2 channel2 */
+  wk_dma2_channel2_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
+     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA2_CHANNEL2, 
+                        (uint32_t)&SPI1->dt, 
+						(uint32_t)spi_buffer,
+						sizeof(spi_buffer));
+  dma_channel_enable(DMA2_CHANNEL2, TRUE);
 
   /* init dma1 channel1 */
   wk_dma1_channel1_init();
@@ -121,72 +155,35 @@ int main(void)
 						(uint32_t)adc2_buffer,
 						sizeof(adc2_buffer)/sizeof(adc1_buffer[0]));
   dma_channel_enable(DMA1_CHANNEL2, TRUE);
+
+  /* init dma2 channel3 */
+  wk_dma2_channel3_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
+     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA2_CHANNEL3, 
+                        (uint32_t)&USART1->dt, 
+                        DMA2_CHANNEL3_MEMORY_BASE_ADDR, 
+                        DMA2_CHANNEL3_BUFFER_SIZE);
+  dma_channel_enable(DMA2_CHANNEL3, TRUE);
+
+  /* init dma2 channel4 */
+  wk_dma2_channel4_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
+     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA2_CHANNEL4, 
+                        (uint32_t)&USART1->dt, 
+                        DMA2_CHANNEL4_MEMORY_BASE_ADDR, 
+                        DMA2_CHANNEL4_BUFFER_SIZE);
+  dma_channel_enable(DMA2_CHANNEL4, TRUE);
+
+  /* add user code begin 2 */
   /* init exint function. */
   wk_exint_config();
 
   adc_flag_clear(ADC1, ADC_OCCO_FLAG | ADC_TCF_FLAG);
   adc_flag_clear(ADC2, ADC_OCCO_FLAG | ADC_TCF_FLAG);
-  /* init dma1 channel3 */
-  wk_dma1_channel3_init();
-  /* config dma channel transfer parameter */
-
-  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
-     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
-  wk_dma_channel_config(DMA1_CHANNEL3, 
-                        (uint32_t)&SPI1->dt, 
-                        (uint32_t)spi_buffer, 
-                        sizeof(spi_buffer));
-  dma_channel_enable(DMA1_CHANNEL3, TRUE);
-
-  /* init dma1 channel4 */
-  wk_dma1_channel4_init();
-  /* config dma channel transfer parameter */
-  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
-     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
-  wk_dma_channel_config(DMA1_CHANNEL4, 
-                        (uint32_t)&SPI1->dt, 
-                        (uint32_t)spi_buffer, 
-                        sizeof(spi_buffer));
-  dma_channel_enable(DMA1_CHANNEL4, TRUE);
-
-  /* init dma1 channel5 */
-  wk_dma1_channel5_init();
-  /* config dma channel transfer parameter */
-  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
-     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
-  wk_dma_channel_config(DMA1_CHANNEL5, 
-                        (uint32_t)&USART1->dt, 
-                        DMA1_CHANNEL5_MEMORY_BASE_ADDR, 
-                        DMA1_CHANNEL5_BUFFER_SIZE);
-  dma_channel_enable(DMA1_CHANNEL5, TRUE);
-
-  /* init dma1 channel6 */
-  wk_dma1_channel6_init();
-  /* config dma channel transfer parameter */
-  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR 
-     and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
-  wk_dma_channel_config(DMA1_CHANNEL6, 
-                        (uint32_t)&USART1->dt, 
-                        DMA1_CHANNEL6_MEMORY_BASE_ADDR, 
-                        DMA1_CHANNEL6_BUFFER_SIZE);
-  dma_channel_enable(DMA1_CHANNEL6, TRUE);
-
-  /* usart1 already supports printf. */
-  /* init usart1 function. */
-//  wk_usart1_init();
-
-  /* init crc function. */
-  wk_crc_init();
-
-  /* init aes function. */
-  wk_aes_init();
-
-  /* init trng function. */
-  wk_trng_init();
-
-
-  /* add user code begin 2 */
-
   /* add user code end 2 */
 
   /* init freertos function. */
