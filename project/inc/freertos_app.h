@@ -77,6 +77,7 @@ typedef enum{
 	AFE_CMD_FW_WRITE,
 	AFE_CMD_FW_END,
 	AFE_ADC_READ,
+	AFE_ADC_OVF_CNT,
 }AFECmd;
 
 typedef enum{
@@ -147,7 +148,8 @@ extern volatile int ADC_Capture_Index1;
 extern volatile int ADC_Capture_Index2;
 extern volatile int ADC_Capture_Ready1;
 extern volatile int ADC_Capture_Ready2;
-
+extern volatile int ADC_Overflow_Count1;
+extern volatile int ADC_Overflow_Count2;
 /* add user code end 0 */
 
 void freertos_task_create(void);

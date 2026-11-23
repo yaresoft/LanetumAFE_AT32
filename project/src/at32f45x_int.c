@@ -372,6 +372,24 @@ void ADC1_2_IRQHandler(void)
 
   /* add user code end ADC1_2_IRQ 0 */
 
+  if(adc_interrupt_flag_get(ADC1, ADC_OCCO_FLAG) != RESET)
+  {
+    /* add user code begin ADC1_ADC_OCCO_FLAG */
+    /* clear flag */
+    adc_flag_clear(ADC1, ADC_OCCO_FLAG);
+    ADC_Overflow_Count1++;
+    /* add user code end ADC1_ADC_OCCO_FLAG */ 
+  }
+
+  if(adc_interrupt_flag_get(ADC2, ADC_OCCO_FLAG) != RESET)
+  {
+    /* add user code begin ADC2_ADC_OCCO_FLAG */
+    /* clear flag */
+    adc_flag_clear(ADC2, ADC_OCCO_FLAG);
+    ADC_Overflow_Count2++;
+    /* add user code end ADC2_ADC_OCCO_FLAG */ 
+  }
+
   /* add user code begin ADC1_2_IRQ 1 */
 
   /* add user code end ADC1_2_IRQ 1 */

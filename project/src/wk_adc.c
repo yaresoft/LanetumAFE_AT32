@@ -109,6 +109,9 @@ void wk_adc1_init(void)
   adc_dma_mode_enable(ADC1, TRUE);
   adc_dma_request_repeat_enable(ADC1, TRUE);
 
+  /* enable ordinary channel conversion overflow interrupt */
+  adc_interrupt_enable(ADC1, ADC_OCCO_INT, TRUE);
+
   /* add user code begin adc1_init 2 */
 
   /* add user code end adc1_init 2 */
@@ -181,6 +184,9 @@ void wk_adc2_init(void)
 
   adc_dma_mode_enable(ADC2, TRUE);
   adc_dma_request_repeat_enable(ADC2, TRUE);
+
+  /* enable ordinary channel conversion overflow interrupt */
+  adc_interrupt_enable(ADC2, ADC_OCCO_INT, TRUE);
 
   /* add user code begin adc2_init 2 */
 

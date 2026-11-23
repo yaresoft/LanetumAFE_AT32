@@ -35,6 +35,9 @@
             <ParametersSub name="Channel_OrdinarySequence_2" value="ADC_CHANNEL_1"/>
             <ParametersSub name="SamplingRate_OrdinarySequence_2" value="5.333"/>
         </Parameters>
+        <Interrupts>
+            <InterruptsSub name="Interrupt_OCCO" value="TRUE"/>
+        </Interrupts>
     </ADC1>
     <ADC2>
         <Mode>
@@ -56,6 +59,9 @@
             <ParametersSub name="SamplingTime_OrdinarySequence_2" value="ADC_SAMPLETIME_6_5"/>
             <ParametersSub name="SamplingRate_OrdinarySequence_2" value="4.211"/>
         </Parameters>
+        <Interrupts>
+            <InterruptsSub name="Interrupt_OCCO" value="TRUE"/>
+        </Interrupts>
     </ADC2>
     <AES>
         <Mode>

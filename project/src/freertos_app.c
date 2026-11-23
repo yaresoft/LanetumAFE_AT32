@@ -39,6 +39,8 @@ volatile int ADC_Capture_Index1=0;
 volatile int ADC_Capture_Index2=0;
 volatile int ADC_Capture_Ready1=0;
 volatile int ADC_Capture_Ready2=0;
+volatile int ADC_Overflow_Count1=0;
+volatile int ADC_Overflow_Count2=0;
 /* add user code end private define */
 
 /* private macro -------------------------------------------------------------*/
@@ -573,6 +575,7 @@ void cmdProcessorTask(void *pvParameters)
 	//AFEDataPacket *packet = (AFEDataPacket*) spi_resp_buffer;
 	AFEDataPacket *packet=pvPortMalloc(sizeof(AFEDataPacket));
 	AFEMetaDataDef *meta = (AFEMetaDataDef*) (0x0807F800);
+	uint32_t* ptr=(uint32_t*)packet->payload.data;
 	/* add user code end cmdProcessorTask 0 */
 
   /* add user code begin cmdProcessorTask 2 */
@@ -804,6 +807,18 @@ void cmdProcessorTask(void *pvParameters)
 					}
 					LastCommand=AFE_ADC_READ;
 
+					packet->sequence=packet->sequence+1;
+					packet->payload.cmd=LastCommand;
+					packet->payload.response=LastResponse;
+					packet->crc=crc_block_calculate_bytes((uint8_t*) &packet->payload, sizeof(AFEPacketPayload));
+					break;
+				case AFE_ADC_OVF_CNT:
+
+
+					ptr[0]=ADC_Overflow_Count1;
+					ptr[1]=ADC_Overflow_Count2;
+					LastCommand=AFE_ADC_OVF_CNT;
+					LastResponse=AFE_RESP_OK;
 					packet->sequence=packet->sequence+1;
 					packet->payload.cmd=LastCommand;
 					packet->payload.response=LastResponse;
