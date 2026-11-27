@@ -576,6 +576,8 @@ void cmdProcessorTask(void *pvParameters)
 	AFEDataPacket *packet=pvPortMalloc(sizeof(AFEDataPacket));
 	AFEMetaDataDef *meta = (AFEMetaDataDef*) (0x0807F800);
 	uint32_t* ptr=(uint32_t*)packet->payload.data;
+	uint16_t* adcdat1=(uint16_t*)ADC_Capture;
+	uint16_t* adcdat2=(uint16_t*)(&ADC_Capture[sizeof(ADC_Capture)/2]);
 	/* add user code end cmdProcessorTask 0 */
 
   /* add user code begin cmdProcessorTask 2 */
@@ -787,9 +789,11 @@ void cmdProcessorTask(void *pvParameters)
 					{
 						if(ADC_Capture_Ready1&&ADC_Capture_Ready2)
 						{
+
 							if(packet->payload.offset+packet->payload.len<sizeof(ADC_Capture))
 							{
-								memcpy(packet->payload.data,&ADC_Capture[packet->payload.offset],packet->payload.len);
+								memcpy(packet->payload.data,&ADC_Capture[packet->payload.offset],packet->payload.len/2);
+								memcpy(&packet->payload.data[1016],&ADC_Capture[packet->payload.offset+40640],packet->payload.len/2);
 							}
 							ADC_Capture_Ready1=0;
 							ADC_Capture_Ready2=0;
@@ -813,10 +817,16 @@ void cmdProcessorTask(void *pvParameters)
 					packet->crc=crc_block_calculate_bytes((uint8_t*) &packet->payload, sizeof(AFEPacketPayload));
 					break;
 				case AFE_ADC_OVF_CNT:
+					for(int i=0;i<10160;i++)
+					{
+						adcdat1[i*2+0]=i;//meta->id*4+0;
+						adcdat1[i*2+1]=10160-i;//meta->id*4+1;
+						adcdat2[i*2+0]=i;//meta->id*4+2;
+						adcdat2[i*2+1]=10160-i;//meta->id*4+3;
+					}
 
-
-					ptr[0]=ADC_Overflow_Count1;
-					ptr[1]=ADC_Overflow_Count2;
+//					ptr[0]=ADC_Overflow_Count1;
+//					ptr[1]=ADC_Overflow_Count2;
 					LastCommand=AFE_ADC_OVF_CNT;
 					LastResponse=AFE_RESP_OK;
 					packet->sequence=packet->sequence+1;
